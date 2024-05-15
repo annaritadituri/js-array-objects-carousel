@@ -20,7 +20,7 @@
 
 .item {
     height: 100%;
-    display: none;
+    /*display: none;*/
     position: relative;
 }
 
@@ -30,9 +30,11 @@
     object-fit: cover;
 }
 
+/*
 .item.active {
     display: block;
 }
+*/
 
 .prev, .next {
     width: 20px;
