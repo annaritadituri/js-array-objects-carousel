@@ -4,6 +4,11 @@
 
 //DEFINIRE VARIABILI
 const divItems = document.querySelector('.items');
+const allDivItem = [];
+let createImg;
+let createTitle;
+let createText;
+
 const clickNext = document.querySelector('.next');
 const clickPrev = document.querySelector('.prev');
 let position = 0;
@@ -41,70 +46,82 @@ const images = [
     }
 ];
 
-//console.log({images});
+console.log({images});
 
-//FISSARE LA PRIMA POSIZIONE
-//image
-const createDiv = document.createElement('div');
-createDiv.classList.add("item");
-//createDiv.classList.add("active");
-divItems.append(createDiv);
-const createImg = document.createElement('img');
-createDiv.append(createImg);
-let currentImg = document.querySelector('img');
-currentImg.src = `../${images[position].image}`;
-//title
-const createTitle = document.createElement('h1');
-divItems.append(createTitle);
-let currentTitle = document.querySelector('h1');
-currentTitle.innerHTML = images[position].title;
-//text
-const createText = document.createElement('p');
-divItems.append(createText);
-let currentText = document.querySelector('p');
-currentText.innerHTML = images[position].text;
+//AGGIUNGERE TUTTE LE IMMAGINI NEL DOM
+for (let i = 0; i < images.length; i++) {
 
-//ATTIVARE LO SCROLL
+    //div item
+    const createDiv = document.createElement('div');
+    createDiv.classList.add("item");
+    divItems.append(createDiv);
+    allDivItem[i] = createDiv;
+    //FISSARE LA PRIMA POSIZIONE
+    if (i === 0) {
+        createDiv.classList.add("active");
+    }
+    //image
+    createImg = document.createElement('img');
+    createDiv.append(createImg);
+    createImg.src = `../${images[i].image}`;
+    createImg.alt = images[i].title;
+    //title
+    createTitle = document.createElement('h1');
+    createDiv.append(createTitle);
+    createTitle.innerHTML = images[i].title;
+    //text
+    createText = document.createElement('p');
+    createDiv.append(createText);
+    createText.innerHTML = images[i].text;
+
+}
+
 clickNext.addEventListener('click',
     function() {
+    
+        allDivItem[position].classList.remove("active");
+        allDivItem[scrollCarouselNext(position, images)].classList.add("active");
 
         //changing position in the array
         position = scrollCarouselNext(position, images);
-        //console.log({position});
-        //console.log(images[position]);
+        console.log({position});
 
         //scrolling title
-        currentTitle.innerHTML = images[position].title;
+        createTitle.innerHTML = images[position].title;
         //console.log({currentTitle}.innerHTML);
 
         //scrolling text
-        currentText.innerHTML = images[position].text;
+        createText.innerHTML = images[position].text;
 
         //scrolling image
-        currentImg.src = `../${images[position].image}`;
+        createImg.src = `../${images[position].image}`;
+
     }
 )
 
 clickPrev.addEventListener('click',
     function() {
+    
+        allDivItem[position].classList.remove("active");
+        allDivItem[scrollCarouselPrev(position, images)].classList.add("active");
 
         //changing position in the array
         position = scrollCarouselPrev(position, images);
-        //console.log({position});
-        //console.log(images[position]);
+        console.log({position});
 
         //scrolling title
-        currentTitle.innerHTML = images[position].title;
+        createTitle.innerHTML = images[position].title;
         //console.log({currentTitle}.innerHTML);
 
         //scrolling text
-        currentText.innerHTML = images[position].text;
+        createText.innerHTML = images[position].text;
 
         //scrolling image
-        currentImg.src = `../${images[position].image}`;
-        
+        createImg.src = `../${images[position].image}`;
+
     }
 )
+
 
 /////////////////////////////////////////////
 /*
